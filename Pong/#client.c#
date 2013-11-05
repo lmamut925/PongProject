@@ -1,0 +1,90 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include "ball.h"
+//#include "ball.c"
+
+/*struct frame_info {
+  int xcor;
+  int ycor;
+  int xvel;
+  int yvel;
+  struct vpaddle *left;
+  struct vpaddle *right;
+  struct hpaddle *up;
+  struct hpaddle *down;
+};
+*/
+
+//splits the struct into a String
+//char[] split(struct ball * ball){
+  
+
+//}
+
+
+
+int main(int argc, char **argv) {
+  int socket_id1;
+  int socket_id2;
+  int socket_id3;
+  char buffer[256];
+  int i, b;
+  
+  struct sockaddr_in sock;
+
+  //make the server socket for reliable IPv4 traffic 
+  socket_id1= socket( AF_INET, SOCK_STREAM, 0);
+  socket_id2= socket( AF_INET, SOCK_STREAM, 0);
+  socket_id3= socket( AF_INET, SOCK_STREAM, 0);
+
+
+
+  printf("Socket file descriptor: %d\n", socket_id1);
+
+  //set up the server socket struct
+  //Use IPv4 
+  sock.sin_family = AF_INET;
+
+  //Client will connect to address in argv[1], need to translate that IP address to binary
+  inet_aton( argv[1], &(sock.sin_addr) );
+    
+  //set the port to listen on, htons converts the port number to network format
+  sock.sin_port = htons(24601);
+  
+  //connect to the server
+  int c1 = connect(socket_id1, (struct sockaddr *)&sock, sizeof(sock));
+  int c2 = connect(socket_id2, (struct sockaddr *)&sock, sizeof(sock));
+  int c3 = connect(socket_id3, (struct sockaddr *)&sock, sizeof(sock));
+  
+  printf("Connect returned: %d\n", c1);
+
+    //do client stuff continuously
+  while (1) {
+    struct ball * ball = malloc(80);
+    int ch = getch();
+    if (ch == KEY_UP){
+      ball->right->ycor += 1;
+      b = write(socket_id1, ball->right->ycor, 8);
+    }
+    if (ch == KEY_DOWN){
+      ball->right->ycor -= 1;
+    }
+
+ 
+    //  char [] part = split
+    //  b = write(socket_id, part, sizeof(frame_info) );
+   
+    // b = read( socket_id,  frame_info, sizeof(frame_info) );
+  
+  }
+
+    close(socket_id1);
+
+    return 0;
+}

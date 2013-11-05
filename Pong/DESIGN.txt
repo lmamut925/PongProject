@@ -1,0 +1,299 @@
+Lenny Mamut
+Miles McKey 
+Jack Haggerty
+
+Our project was Pong! We have 2 main files (ball and paddle as well as client and server files for networking. We started off by using TCP but changed to UDP because of the simplicity that UDP has.
+
+The project will be used recreationally! It is a game so have fun playing it!!
+
+Topics covered: 
+1) we implemented networking into our project by making pong playable over two computers! 
+2) we implemented memory management throughout our project by having to malloc different things. 
+3) Our networking covered a lot of file use as we had to deconstruct and reconstruct a string in order for information to be passed from one computer to another. Whenever a key is pressed the client/server has to be informed of the change in the paddle coordinates. 
+
+FUNCTIONS!!
+/*============ struct ball * create_ball() ===================
+Inputs: None
+
+Returns: A ball struct 
+
+This function creates the ball, coordinates are given and paddle coordinates are given 
+=============================================================*/
+
+
+
+
+/*============ void draw_ball()  ===================================
+Inputs: struct ball * ball
+        bool flag
+
+Returns: Nothing
+
+This function draws the ball in the terminal taking a ball struct as its parameters and if flag is true the ball is drawn with the '@' character and if not the ball is drawn with spaces so it is deleated. 
+===============================================================*/
+
+
+
+
+/*============ void move_ball() ===================================
+Inputs: struct ball * ball
+
+Returns: Nothing
+
+This function moves the ball in the terminal taking a ball struct as its parameter
+==============================================================*/
+
+
+
+
+
+/*============ int close_toV() ========================================
+Inputs: struct ball * ball 
+        struct vpaddle *pad
+
+Returns: Distance from the middle of the paddle
+
+This function checks how close from the center the ball is when it hits the paddle in order to decide how the ball should bounce
+======================================================================*/
+
+
+
+
+
+/*============ int how_closeV()  =====================================
+Inputs: struct ball * ball 
+        struct vpaddle *pad
+
+Returns: The distance away from the paddle
+
+This function finds an interger value for how far the ball is from the paddle
+====================================================================*/
+
+
+
+
+
+
+/*============ int close_toH() ================================
+Inputs: struct ball * ball
+        struct hpaddle *pad
+
+Returns: Distance from the center from the Horizontal paddle
+
+This function checks how close from the center the ball is when it hits the Horizontal
+ paddle in order to decide how the ball should bounce
+====================================================================*/
+
+
+
+
+
+
+/*============ int how_closeH() =================================
+Inputs: struct ball * ball
+        struct hpaddle *pad
+
+Returns: Distance from the ball to the Horizontal paddle
+
+This function finds an interger value for how far the ball is from the Horizontal paddle
+==========================================================================*/
+
+
+
+
+
+/*============ int istouching_paddle()  ==============================
+Inputs: struct ball * ball
+
+Returns: An integer (1-4) based on which paddle the ball touches
+
+This function returns a number based on the paddle the ball touches
+========================================================================*/
+
+
+
+
+
+/*============ int check_impact()  ================================
+Inputs: struct ball * ball 
+
+Returns: 1 if the ball touches the Edge of the board and 0 if it does not
+
+This function finds out if the ball is touching the edge of the board or if it is not and returns an integer based on the results.
+=====================================================================*/
+
+
+
+
+
+
+/*============ void calc_traject()  =================================
+Inputs: struct ball * ball
+
+Returns: Nothing
+
+This function calculates the trajectory of the ball based on where it hits the paddle and the speed of the ball when it hits the paddle. 
+=====================================================================*/
+
+
+
+
+
+
+/*============ char * deconstruct()  =================================
+Inputs: struct ball ball
+
+Returns: A string version of the ball struct 
+
+The different parts of the ball struct (ball x coordinate, y coordinate etc...) are put into a string in order for the information to be sent through networking
+
+=====================================================================*/
+
+
+
+
+
+
+/*============ char * reconstruct()  ===============================
+Inputs: char * string
+
+Returns: A ball struct
+
+It takes the deconstructed string and recombines it into a ball struct in order to be run through different functions
+
+===================================================================*/
+
+
+
+
+
+/*============ struct vpaddle * create_Vpaddle()  ==============
+Inputs: int xcord
+
+Returns: A vpaddle Struct
+
+This function creates a Vpaddle struct with information about the paddles
+
+=========================================================*/
+
+
+
+
+
+/*============ void draw_Vpaddle()==============================
+Inputs: struct vpaddle * pad
+        bool flag
+
+Returns: Nothing
+
+This function draws the Vertical paddle in the terminal
+====================*/
+
+
+
+
+
+/*============ void move_Vpaddle()  ==============
+Inputs: struct vpaddle *pad
+        int offset
+
+Returns: Nothing
+
+This function moves the paddle based on the value of offset. When it moves it erases the bottom and adds to the top (if it is moving up) or erases from the top and adds to the bottom (if it is moving down)
+====================*/
+
+
+
+
+/*============ struct hpaddle * create_Hpaddle()  ==============
+Inputs: int ycord
+
+Returns: A hpaddle struct
+
+Creates an Hpaddle struct
+========================================================*/
+
+
+
+
+
+
+/*============ void draw_Hpaddle() ========================
+Inputs: struct hpaddle * pad 
+        bool flag
+Returns: Nothing
+
+Draws the Hpaddle
+=======================================================*/
+
+
+
+
+
+
+/*============ void move_Hpaddle() ==============
+Inputs: struct hpaddle * pad
+        int offset
+
+Returns: Nothing
+
+Moves the Hpaddle based on the value of offset
+====================*/
+
+
+/*============ int main() - userver.c ==============
+Inputs: Nothing
+
+Returns: 1
+
+This file runs the server portion of the udp networking. The server
+does all the usual setup. It makes a socket for the server and the
+client and makes the struct sockaddr_in called server. The server sets
+the sin_family for IPv4, the sin_addr to INADDR_ANY( because its a
+server and the sin_port to any number. It then binds the server socket
+to the server struct. After that userver.c sets up the neccesary
+elements for pong using the included file ball.c. This entails
+creating the paddles and the balls. After  a while loop is set up. The
+while loop runs the neccesary game functions of pong (like drawing the
+ball, moving paddles, ect.) and recieves information from the client
+using the function recvFrom(). It also send sback information to the
+client using the function sendTo(). The information sent concerns the
+location of the paddles and ball. 
+====================*/
+
+
+
+/*============ int main() - client.c ==============
+Inputs: int argc
+        char ** argv
+Returns: 1
+
+This file runs the client side of the udp networking. To run the file you
+must give an arguement. For example, after making the make file, you would 
+run the client by typring ./client "IP address", where IP address is the 
+address the client wants to connect to. Like the serve, the client makes a socket
+and set it up appropriatly. The only difference is that the client sets the sin_addr 
+to the **argv. It then connects to the server using connect(). Then it creates the 
+neccesary elements for the pong game. The client then runs a continual while loop
+that draws the board as the game runs. The client sends information when its own paddle 
+moves using sendTo(). Then it recieves information from the client about other aspects 
+of the board.
+====================*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

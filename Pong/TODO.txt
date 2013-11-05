@@ -1,0 +1,23 @@
+Get Networking to work for 1 v 1. 
+
+Trying to use TCP but the ball will only move when key is pressed. Problem with writing the file as when we comment it out game works but when included it exits the game.
+   -Problem fixed with switch from TCP to UDP
+
+Attempting a switch from TCP to UDP
+   -Successfully switched from TCP to UDP 5:23 pm 1/24/13
+
+Have to make it so if the ball does not hit the paddle you lose!
+   -Success!! 6:37 pm 1/24/13
+
+Have to keep track of points 
+   -Success!! 6:51 pm 1/24/13
+
+Ball must be placed in the middle if you lose 
+   -Success!! 7:00 pm 1/24/13
+
+When a player reaches 9 points the game stops and displays "Winner/Loser"
+
+
+
+
+

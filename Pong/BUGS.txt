@@ -1,0 +1,13 @@
+BUGS
+
+The ball gets stuck in the corner
+
+Game lags out
+
+Sometimes the client's paddles start out of position and the paddles wont move
+
+Sometimes one of the client's paddles won't show up
+
+
+
+
